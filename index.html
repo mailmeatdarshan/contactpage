@@ -49,6 +49,29 @@
             border-radius: 10px;
         }
 
+        .play-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .play-button.playing {
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+        }
+
         .main-title {
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 700;
@@ -74,6 +97,13 @@
                 font-size: clamp(1rem, 4vw, 1.3rem);
             }
         }
+
+        .play-button-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+        }
     </style>
 </head>
 <body>
@@ -86,6 +116,33 @@
             <h1 class="main-title">We're not in<br>contact</h1>
             <p class="subtitle">Check back for an update soon.</p>
         </div>
+
+        <div class="play-button-container">
+            <button class="play-button" onclick="toggleMusic()">🎵 Play Music</button>
+        </div>
+
+        <audio id="backgroundMusic" autoplay loop>
+            <source src="./choo lo.mp3" type="audio/mpeg">
+            <!-- <source src="./music.ogg" type="audio/ogg"> -->
+            Your browser does not support the audio element.
+        </audio>
     </div>
+
+    <script>
+        function toggleMusic() {
+            const audio = document.getElementById('backgroundMusic');
+            const playButton = document.querySelector('.play-button');
+
+            if (audio.paused) {
+                audio.play();
+                playButton.textContent = '🎵 Pause Music'; 
+                playButton.classList.add('playing');
+            } else {
+                audio.pause();
+                playButton.textContent = '🎵 Play Music'; 
+                playButton.classList.remove('playing');
+            }
+        }
+    </script>
 </body>
 </html>
